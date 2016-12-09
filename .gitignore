@@ -1,0 +1,18 @@
+dump.rdb
+yarn.lock
+*meta.xml
+.DS_Store
+/.settings
+/src/objects
+*package.xml
+*.log
+*sublime-*
+/deploy
+*-meta.xml
+node_modules
+# resource bundles are built code and should be regenerated manually
+resource-bundles/
+#OTC.resource is also compiled and generated file
+src/staticresources/OTC.*
+dist/
+coverage/

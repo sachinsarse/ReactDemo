@@ -1,0 +1,51 @@
+{
+  "name": "admin-app",
+  "description": "Go+, Insights Project Specification",
+  "scripts": {
+    "build": "npm run clear-dist && webpack",
+    "build-prod": "webpack --config webpack.config.prod.js",
+    "clear-dist": "rm -Rf dist/",
+    "start": "npm run clear-dist && node nodemon.js"
+  },
+  "dependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.3.15",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "chalk": "^1.1.3",
+    "css-loader": "^0.23.1",
+    "ejs": "^2.4.2",
+    "expr-eval": "^0.10.1",
+    "express": "^4.13.4",
+    "file-loader": "^0.8.5",
+    "imagemin-webpack-plugin": "^1.0.7",
+    "jsdom": "^9.2.1",
+    "jsx-loader": "^0.13.2",
+    "lodash": "^4.13.1",
+    "node-sass": "^3.10.0",
+    "react": "15.0.2",
+    "react-addons-css-transition-group": "^15.3.2",
+    "react-addons-transition-group": "^15.3.2",
+    "react-bootstrap": "^0.29.5",
+    "react-dom": "15.0.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.0"
+  },
+  "engines": {
+    "node": "6.3.x",
+    "npm": "3.10.x"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "reactable": "^0.14.0"
+  },
+  "license": "ISC"
+}
