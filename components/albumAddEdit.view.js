@@ -2,13 +2,14 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router'
 
-class DashboardManagementView extends Component {
+class AlbumAddEditView extends Component {
     constructor(props) {
         super(props);
         this.state = {
             albumForm: {
+                id: '',
                 albumName: '',
-                year: '',
+                releaseYear: '',
                 artistId: ''
             },
         }
@@ -35,7 +36,7 @@ class DashboardManagementView extends Component {
 
     handleYearChange(e) {
         var albumForm = this.state.albumForm;
-        albumForm.year = e.target.value;
+        albumForm.releaseYear = e.target.value;
         this.setState({ albumForm: albumForm });
     }
 
@@ -47,23 +48,35 @@ class DashboardManagementView extends Component {
 
     saveAlbumsApi(album) {
         var albumForm = this.state.albumForm;
-        var header = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ${hash}'
-            },
-            "body": JSON.stringify(albumForm),
-        };
+        if (!this.state.albumForm.id) {
+            var header = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                "body": JSON.stringify(albumForm),
+            };
 
-        return fetch("http://localhost:4000/api/album", header)
-            .then(response => {
-                response.json();
-            })
-            .then(function (res) {
-                return res;
-            })
-            .catch(error => { console.log('request failed', error); });
+            return fetch("http://localhost:4000/api/album", header)
+                .then(response => {
+                    response;
+                })
+        } else {
+            var header = {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                "body": JSON.stringify(albumForm),
+            };
+
+            return fetch("http://localhost:4000/api/album", header)
+                .then(response => {
+                    response;
+                })
+        }
     }
 
     onAddClick() {
@@ -74,24 +87,35 @@ class DashboardManagementView extends Component {
     };
 
     getAlbumApi(id) {
-        url = "http://localhost:4000/api/album/" + id;
-        return fetch(url, { method: 'GET', mode: 'no-cors' })
+        var url = "http://localhost:4000/api/album/" + id;
+        return fetch(url, { method: 'GET' })
             .then(response => {
-                response.json();
+                return response.json();
             })
-            .then(function (res) {
-                return res;
-            })
-            .catch(error => { console.log('request failed', error); });
     }
 
     getAlbum() {
+        var rec = this;
         this.getAlbumApi(this.props.params.id).then(function (response) {
             rec.setState({ albumForm: response });
         });
     };
 
     renderForm() {
+        var buttons;
+        if (!this.state.albumForm.id) {
+            buttons = (
+                <div className="col-xs-6">
+                    <button id="add" className="btn btn-success pull-right" onClick={ this.onAddClick }><span className="glyphicon glyphicon-plus-sign"></span> Save</button>
+                </div>
+            )
+        } else {
+            buttons = (
+                <div className="col-xs-6">
+                    <button id="update" className="btn btn-success pull-right" onClick={ this.onAddClick }><span className="glyphicon glyphicon glyphicon-edit"></span> Update</button>
+                </div>
+            )
+        }
         return (
             <div>
                 <div className="form-group">
@@ -101,7 +125,7 @@ class DashboardManagementView extends Component {
                 </div>
                 <div className="form-group">
                     <label className="control-label" for="year"> Release Year <span className="asterisk">*</span></label>
-                    <input id="year" name="year" className="form-control" type="number"  className="form-control" value={this.state.albumForm.year || ''}
+                    <input id="year" name="year" className="form-control" type="number"  className="form-control" value={this.state.albumForm.releaseYear || ''}
                         onChange={this.handleYearChange} />
                 </div>
                 <div className="form-group">
@@ -114,9 +138,7 @@ class DashboardManagementView extends Component {
                     <div className="col-xs-6">
                         <button id="back" className="btn btn-success pull-left" onClick={ this.onBack }>Back</button>
                     </div>
-                    <div className="col-xs-6">
-                        <button id="add" className="btn btn-success pull-right" onClick={ this.onAddClick }><span className="glyphicon glyphicon-plus-sign"></span> Add</button>
-                    </div>
+                    { buttons }
                 </div>
             </div>
         );
@@ -140,4 +162,4 @@ class DashboardManagementView extends Component {
     }
 }
 
-export default DashboardManagementView;
+export default AlbumAddEditView;
