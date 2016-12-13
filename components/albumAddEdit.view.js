@@ -7,7 +7,7 @@ class AlbumAddEditView extends Component {
         super(props);
         this.state = {
             albumForm: {
-                id: '',
+                albumId: '',
                 albumName: '',
                 releaseYear: '',
                 artistId: ''
@@ -48,31 +48,41 @@ class AlbumAddEditView extends Component {
 
     saveAlbumsApi(album) {
         var albumForm = this.state.albumForm;
-        if (!this.state.albumForm.id) {
+
+        if (!this.state.albumForm.albumId) {
+            var form = new FormData();
+            form.append("artistId", albumForm.artistId);
+            form.append("albumName", albumForm.albumName);
+            form.append("releaseYear", albumForm.releaseYear);
+
             var header = {
                 method: 'POST',
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
+                    "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0',
                 },
-                "body": JSON.stringify(albumForm),
+                body: form,
             };
 
-            return fetch("http://localhost:4000/api/album", header)
+            return fetch("http://192.168.100.75:8080/api/jsonws/EternusCRUD-portlet.album/create-album", header)
                 .then(response => {
                     response;
                 })
         } else {
+            var form = new FormData();
+            form.append("albumId", albumForm.albumId);
+            form.append("artistId", albumForm.artistId);
+            form.append("albumName", albumForm.albumName);
+            form.append("releaseYear", albumForm.releaseYear);
+
             var header = {
                 method: 'PUT',
                 headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
+                    "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0',
                 },
-                "body": JSON.stringify(albumForm),
+                body: form,
             };
 
-            return fetch("http://localhost:4000/api/album", header)
+            return fetch("http://192.168.100.75:8080/api/jsonws/EternusCRUD-portlet.album/update-album", header)
                 .then(response => {
                     response;
                 })
@@ -87,8 +97,14 @@ class AlbumAddEditView extends Component {
     };
 
     getAlbumApi(id) {
-        var url = "http://localhost:4000/api/album/" + id;
-        return fetch(url, { method: 'GET' })
+        var url = "http://192.168.100.75:8080/api/jsonws/EternusCRUD-portlet.album/get-album/album-id/" + id;
+        var header = {
+            method: 'GET',
+            headers: {
+                "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0',
+            },
+        };
+        return fetch(url, header)
             .then(response => {
                 return response.json();
             })
@@ -103,7 +119,7 @@ class AlbumAddEditView extends Component {
 
     renderForm() {
         var buttons;
-        if (!this.state.albumForm.id) {
+        if (!this.state.albumForm.albumId) {
             buttons = (
                 <div className="col-xs-6">
                     <button id="add" className="btn btn-success pull-right" onClick={ this.onAddClick }><span className="glyphicon glyphicon-plus-sign"></span> Save</button>

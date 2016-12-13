@@ -14,7 +14,13 @@ class AlbumView extends Component {
   }
 
   getAlbumsApi() {
-      return fetch("http://localhost:4000/api/album", { method: 'GET' })
+       var header = {
+                method: 'GET',
+                headers: {
+                    "Authorization" :'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0',
+                },
+       };
+      return fetch("http://192.168.100.75:8080/api/jsonws/EternusCRUD-portlet.album/get-albums", header)
       .then(response => {
         if (response.status >= 200 && response.status < 300) {
            return response.json();
@@ -31,8 +37,14 @@ class AlbumView extends Component {
 
 
   deleteAlbumApi(id) {
-    var url = "http://localhost:4000/api/album/" + id;
-    return fetch(url, { method: 'DELETE'})
+    var url = "http://192.168.100.75:8080/api/jsonws/EternusCRUD-portlet.album/delete-album/album-id/" + id;
+    var header = {
+      method: 'DELETE',
+      headers: {
+        "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0',
+      },
+    };
+    return fetch(url, header)
       .then(response => {
         response;
       });
@@ -64,11 +76,11 @@ class AlbumView extends Component {
               return (
                 <tr key={i}>
                   <td> {i + 1} </td>
-                  <td><Link to={"albumAddEdit/" + row.id}> {row.albumName}</Link> </td>
+                  <td><Link to={"albumAddEdit/" + row.albumId}> {row.albumName}</Link> </td>
                   <td> {row.releaseYear} </td>
                   <td> {row.artistId} </td>
                   <td>
-                    <button type="button" className="btn btn-default btn-sm" onClick={ current.onDelete.bind(null, row.id, current) }>
+                    <button type="button" className="btn btn-default btn-sm" onClick={ current.onDelete.bind(null, row.albumId, current) }>
                     <span class="glyphicon glyphicon- remove"></span> Delete
                     </button>
                   </td>
