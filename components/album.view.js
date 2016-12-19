@@ -17,10 +17,10 @@ class AlbumView extends Component {
        var header = {
                 method: 'GET',
                 headers: {
-                    "Authorization" :'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0',
+                    "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTplc3BsQDEyMw==',
                 },
        };
-      return fetch("http://192.168.100.75:8080/api/jsonws/EternusCRUD-portlet.album/get-albums", header)
+      return fetch("/api/jsonws/EternusCRUD-portlet.album/get-albums", header)
       .then(response => {
         if (response.status >= 200 && response.status < 300) {
            return response.json();
@@ -37,11 +37,11 @@ class AlbumView extends Component {
 
 
   deleteAlbumApi(id) {
-    var url = "http://192.168.100.75:8080/api/jsonws/EternusCRUD-portlet.album/delete-album/album-id/" + id;
+    var url = "/api/jsonws/EternusCRUD-portlet.album/delete-album/album-id/" + id;
     var header = {
       method: 'DELETE',
       headers: {
-        "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0',
+        "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTplc3BsQDEyMw==',
       },
     };
     return fetch(url, header)
@@ -96,19 +96,19 @@ class AlbumView extends Component {
 
   render() {
     return (
-      <div className="container container-padding">
+      <div>
         <div className="row">
-          <div className="col-xs-10">          
+          <div className="col-xs-11">          
             <Link  to={'/albumAddEdit'}><button id="add" className="btn btn-success pull-right"><span className="glyphicon glyphicon-plus-sign"></span> Add</button></Link>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-1">
           </div>
-          <div className="col-md-8">
+          <div className="col-md-10">
             {this.renderTable() }
           </div>
-          <div className="col-md-2">
+          <div className="col-md-1">
           </div>
         </div>
       </div>

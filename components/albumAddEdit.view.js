@@ -58,12 +58,12 @@ class AlbumAddEditView extends Component {
             var header = {
                 method: 'POST',
                 headers: {
-                    "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0',
+                    "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTplc3BsQDEyMw==',
                 },
                 body: form,
             };
 
-            return fetch("http://192.168.100.75:8080/api/jsonws/EternusCRUD-portlet.album/create-album", header)
+            return fetch("/api/jsonws/EternusCRUD-portlet.album/create-album", header)
                 .then(response => {
                     response;
                 })
@@ -77,12 +77,12 @@ class AlbumAddEditView extends Component {
             var header = {
                 method: 'PUT',
                 headers: {
-                    "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0',
+                    "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTplc3BsQDEyMw==',
                 },
                 body: form,
             };
 
-            return fetch("http://192.168.100.75:8080/api/jsonws/EternusCRUD-portlet.album/update-album", header)
+            return fetch("/api/jsonws/EternusCRUD-portlet.album/update-album", header)
                 .then(response => {
                     response;
                 })
@@ -97,11 +97,11 @@ class AlbumAddEditView extends Component {
     };
 
     getAlbumApi(id) {
-        var url = "http://192.168.100.75:8080/api/jsonws/EternusCRUD-portlet.album/get-album/album-id/" + id;
+        var url = "/api/jsonws/EternusCRUD-portlet.album/get-album/album-id/" + id;
         var header = {
             method: 'GET',
             headers: {
-                "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0',
+                "Authorization": 'Basic dGVzdEBsaWZlcmF5LmNvbTplc3BsQDEyMw==',
             },
         };
         return fetch(url, header)
@@ -163,14 +163,14 @@ class AlbumAddEditView extends Component {
 
     render() {
         return (
-            <div className="container container-padding">
+            <div>
                 <div className="row">
-                    <div className="col-md-2">
+                    <div className="col-md-1">
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-md-10">
                         {this.renderForm() }
                     </div>
-                    <div className="col-md-2">
+                    <div className="col-md-1">
                     </div>
                 </div>
             </div>
